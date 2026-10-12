@@ -1,0 +1,14 @@
+PSX Skyboxes
+
+Documentation
+
+Unity 6.3 and later
+-------------------
+Import the .unitypackage in unity/. Each sky is in Assets/PSXSkyboxes/Panoramas/ and, as six
+faces, in Faces/, imported point filtered with no mipmaps or compression, and has two skybox
+materials: a Skybox/Panoramic one in Materials/Panoramic/ and a Skybox/6 Sided one in
+Materials/6 Sided/. Both are Unity's own skybox shaders, so they work on the Built-in pipeline
+and URP alike. Drag either onto the scene view, or set it as the Skybox Material under Window >
+Rendering > Lighting > Environment. The 6-sided one keeps its pixels square overhead. Not HDRP.
+Demo/Demo.unity looks at them in Play mode: left / right for the sky, up / down for the
+category, C for the 6-sided or the panoramic material, drag to look.

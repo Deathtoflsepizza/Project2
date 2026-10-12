@@ -1,0 +1,8 @@
+{
+    "name": "HeyHeyThere.PSXSkyboxes",
+    "rootNamespace": "HeyHeyThere.PSXSkyboxes",
+    "references": [
+        "Unity.InputSystem"
+    ],
+    "autoReferenced": true
+}

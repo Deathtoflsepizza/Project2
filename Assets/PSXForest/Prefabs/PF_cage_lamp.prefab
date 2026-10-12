@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6735041361699109290
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      propertyPath: m_Name
+      value: PF_cage_lamp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8537679300288137272}
+    - targetCorrespondingSourceObject: {fileID: -7122182343512331070, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8135542215749810832}
+    - targetCorrespondingSourceObject: {fileID: -2840864889124281129, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3307744942922700009}
+  m_SourcePrefab: {fileID: 100100000, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+--- !u!1 &424626992927563133 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2840864889124281129, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+  m_PrefabInstance: {fileID: 6735041361699109290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3307744942922700009
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424626992927563133}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.094, y: 0.08939934, z: 0.105}
+  m_Center: {x: 0, y: 0, z: -0.0925}
+--- !u!1 &3338928162387796131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+  m_PrefabInstance: {fileID: 6735041361699109290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8537679300288137272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3338928162387796131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd762e7c3c273cdeb5ee30e8b22f27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HeyHeyThere.PSXForest::HeyHeyThere.PSXForest.Machine
+  kind: 7
+  on: 0
+  needs: []
+  clip: 
+  run: 
+  level: 
+  steps: 1
+  takes: 
+  keep: 0
+  item: 
+  code: 
+  lit:
+  - cage_lamp_bulb
+  idle: []
+  fitted: []
+  onUsed:
+    m_PersistentCalls:
+      m_Calls: []
+  onSwitched:
+    m_PersistentCalls:
+      m_Calls: []
+  onLive:
+    m_PersistentCalls:
+      m_Calls: []
+  onRefused:
+    m_PersistentCalls:
+      m_Calls: []
+  onKeyed:
+    m_PersistentCalls:
+      m_Calls: []
+  onPicked:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &4638497111166424424 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7122182343512331070, guid: 91ccfaec4102867ad85091a7c016f79c, type: 3}
+  m_PrefabInstance: {fileID: 6735041361699109290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8135542215749810832
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4638497111166424424}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.16, y: 0.16000009, z: 0.19379473}
+  m_Center: {x: 0, y: 2.1999998, z: -0.09689736}
