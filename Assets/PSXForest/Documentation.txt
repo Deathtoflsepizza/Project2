@@ -1,0 +1,233 @@
+PSX Forest
+
+Documentation
+
+Every prop is a prefab in Assets/PSXForest/Prefabs/ (PF_<prop>): drag it into a scene. 1 unit = 1 m; a prop's pivot
+is on the floor (or, for a wall prop, on the wall) it rests against. Each part has a box collider.
+
+Look
+Every prefab uses Materials/, which use the shader PSXForest/PSX Unlit: the texture times the baked
+vertex shading, unlit, with the PS1's vertex snap (Vertex Snap: rows on screen, 0 = off) and Unity's fog.
+Affine Texture Warp (0 as shipped, up to 1) gives the PS1's swimming textures, most on big faces seen close.
+Render pipelines: Built-in and URP: the materials use the pack's one-pass unlit shader (vertex snap, fog, and an affine texture warp to turn on), which both render. Not HDRP.
+
+Animations
+A prop with moving parts has an Animation component with its clips; nothing plays on its own:
+    GetComponent<Animation>().Play("open");
+Demo/L_Demo.unity circles the props and plays every animation in turn (Scripts/PropsDemo.cs).
+Demo/L_Level.unity is a level of 988 of them to walk (Scripts/LevelWalker.cs): WASD or the
+arrows and the mouse, Shift runs, E uses what is in front of you, Esc frees the mouse.
+
+Pickups
+An item to take, a save point or storage has Scripts/Pickup.cs on its prefab, set up in the inspector: its
+kind (Item, Save, Storage), the item it gives and how many, its title and text, its reveal (the clip the
+inspect view plays) and, for a save, what it takes (an ink ribbon); UnityEvents for what it does (onPicked,
+onSaved, onOpened, onRefused, onUsed). An item glints until it is taken.
+    key.Use(carried);                       // carried: the player's items, a List<string>; the key goes in
+    typewriter.Use(carried);                // takes an ink_ribbon, saves
+Scripts/Inspect.cs holds a prop up over the game to turn and read, E playing its reveal, Esc putting it away:
+    inspect.Open(diary.gameObject);
+
+Machines
+A prop that works (its kind is in the list below) has Scripts/Machine.cs on its prefab, set up in the
+inspector: its kind (what a use does: Switch, Button, Turn, Slot, Keypad, Panel, Item, Powered, Gauge),
+the machines it needs to be powered, and UnityEvents for what it does (onSwitched, onLive, onRefused,
+onUsed, onKeyed, onPicked). Machine.cs's comments say what each kind does.
+    lever.Use(carried);                     // the player's use; carried: the items they hold
+    keypad.Use(carried, "keypad_key_4");    // a key: the part they point at
+    door.needs = new[] { lever };           // the door is powered while the lever is on
+
+Textures: T_atlas.png 2048x2048, T_dirt.png 128x128, T_forest_floor.png 128x128, T_grass.png 128x128, T_grass_dry.png 128x128, T_moss.png 128x128, T_mud.png 128x128, point filtered, no mipmaps.
+Icons/: an inventory icon per prop, T_<prop>, imported as a UI sprite.
+
+Props (triangles, size in metres: width x height x depth, animations)
+- pine_small: Pine, Small, 226 tris, 3.164 x 4.608 x 3.145, sway
+- pine: Pine, 270 tris, 5.892 x 8.71 x 5.354, sway
+- pine_tall: Pine, Tall, 378 tris, 6.576 x 12.681 x 7.201, sway
+- spruce_blue: Spruce, Blue, 334 tris, 5.377 x 7.085 x 5.432, sway
+- pine_sparse: Pine, Sparse, 234 tris, 5.369 x 9.634 x 4.999, sway
+- pine_dead: Pine, Dead, 400 tris, 1.579 x 7.605 x 1.86, sway
+- oak: Oak, 430 tris, 7.449 x 7.182 x 6.823, sway
+- oak_large: Oak, Large, 534 tris, 9.987 x 10.017 x 9.558, sway
+- oak_autumn: Oak, Autumn, 430 tris, 7.089 x 7.445 x 7.753, sway
+- birch: Birch, 368 tris, 3.641 x 7.203 x 3.923, sway
+- oak_dead: Oak, Dead, 432 tris, 5.563 x 6.956 x 5.377, sway
+- tree_dead: Dead Tree, 432 tris, 4.163 x 5.629 x 4.233, sway
+- snag: Snag, 98 tris, 0.819 x 4.03 x 0.798
+- tree_burnt: Burnt Tree, 232 tris, 0.727 x 6.107 x 0.898
+- pine_fallen: Fallen Pine, 203 tris, 7.595 x 1.532 x 1.791
+- willow: Willow, 486 tris, 7.278 x 7.115 x 7.489, sway
+- birch_autumn: Birch, Autumn, 368 tris, 4.115 x 7.374 x 3.817, sway
+- birch_bare: Birch, Bare, 432 tris, 3.214 x 6.609 x 3.295, sway
+- spruce_tall: Spruce, Tall, 478 tris, 6.095 x 14.464 x 6.186, sway
+- branches_fallen: Fallen Branches, 200 tris, 1.613 x 0.17 x 2.13
+- bush: Bush, 144 tris, 1.561 x 1.475 x 1.692
+- bush_tall: Bush, Tall, 180 tris, 1.658 x 2.365 x 1.604
+- bush_berry: Bush, Berries, 144 tris, 1.155 x 1.041 x 1.273
+- bush_dry: Bush, Dry, 144 tris, 1.272 x 1.115 x 1.203
+- bramble: Bramble, 672 tris, 1.717 x 0.869 x 1.769
+- grass: Grass, 156 tris, 0.486 x 0.311 x 0.476
+- grass_tall: Grass, Tall, 180 tris, 0.767 x 0.777 x 0.645
+- grass_dry: Grass, Dry, 156 tris, 0.417 x 0.355 x 0.532
+- fern: Fern, 272 tris, 1.485 x 0.541 x 1.669
+- fern_large: Fern, Large, 328 tris, 2.517 x 0.947 x 2.639
+- reeds: Reeds, 236 tris, 0.724 x 1.725 x 0.788
+- flowers_white: Wildflowers, White, 312 tris, 0.55 x 0.441 x 0.547
+- flowers_yellow: Wildflowers, Yellow, 312 tris, 0.474 x 0.445 x 0.501
+- flowers_purple: Wildflowers, Purple, 312 tris, 0.487 x 0.396 x 0.509
+- mushrooms_red: Mushrooms, Red, 260 tris, 0.393 x 0.221 x 0.413
+- mushrooms_brown: Mushrooms, Brown, 364 tris, 0.433 x 0.221 x 0.281
+- leaf_pile: Leaf Pile, 96 tris, 1.615 x 0.433 x 1.292
+- cattails: Cattails, 444 tris, 0.993 x 1.807 x 1.034
+- rock_small: Rock, Small, 64 tris, 0.591 x 0.358 x 0.405
+- boulder: Boulder, 64 tris, 1.234 x 0.936 x 1.081
+- boulder_large: Boulder, Large, 64 tris, 2.564 x 1.996 x 2.14
+- boulder_mossy: Boulder, Mossy, 64 tris, 1.816 x 0.98 x 1.907
+- rock_flat: Rock, Flat, 64 tris, 1.898 x 0.622 x 1.273
+- rock_pile: Rock Pile, 252 tris, 1.441 x 0.412 x 1.134
+- rock_pile_mossy: Rock Pile, Mossy, 216 tris, 1.704 x 0.509 x 1.108
+- stepping_stones: Stepping Stones, 140 tris, 0.801 x 0.111 x 2.752
+- cairn: Cairn, 288 tris, 0.611 x 1.144 x 0.535
+- cliff: Cliff, 108 tris, 4 x 4 x 2.426
+- cliff_tall: Cliff, Tall, 172 tris, 4 x 7 x 2.985
+- cliff_corner: Cliff, Corner, 110 tris, 3.817 x 4 x 3.45
+- stump: Stump, 138 tris, 1.651 x 0.492 x 1.585
+- stump_large: Stump, Large, 138 tris, 2.641 x 0.715 x 2.498
+- stump_rotten: Stump, Rotten, 138 tris, 1.663 x 0.597 x 1.685
+- log: Log, 60 tris, 3 x 0.462 x 0.462
+- log_birch: Log, Birch, 60 tris, 2 x 0.294 x 0.294
+- log_mossy: Log, Mossy, 84 tris, 3.5 x 0.584 x 0.558
+- log_hollow: Log, Hollow, 144 tris, 3 x 0.886 x 0.9
+- log_pile: Log Pile, 424 tris, 3.1 x 1.044 x 1.27
+- woodpile: Woodpile, 756 tris, 2.2 x 1.339 x 0.696
+- chopping_block: Chopping Block, 146 tris, 1.317 x 1.366 x 1.15
+- cabin: Log Cabin, 2602 tris, 5.032 x 4.708 x 5.35, open
+- outhouse: Outhouse, 192 tris, 1.5 x 2.372 x 1.539, open
+- well: Well, 256 tris, 1.9 x 2.547 x 1.584, draw
+- fence: Fence, 80 tris, 2.702 x 1.25 x 0.127
+- fence_broken: Fence, Broken, 100 tris, 2.701 x 1.262 x 0.127
+- fence_gate: Fence Gate, 112 tris, 2.033 x 1.4 x 0.127, open
+- fence_post: Fence Post, 20 tris, 0.133 x 1.25 x 0.127
+- tent: Tent, 66 tris, 1.7 x 1.353 x 3.749
+- tent_green: Tent, Green, 66 tris, 1.7 x 1.353 x 3.749
+- tent_torn: Tent, Torn, 82 tris, 1.7 x 1.053 x 3.748
+- campfire: Campfire, 323 tris, 1.192 x 0.816 x 1.177, burn
+- campfire_out: Campfire, Out, 305 tris, 1.192 x 0.216 x 1.177
+- log_bench: Log Bench, 94 tris, 1.9 x 0.64 x 0.33
+- sleeping_bag: Sleeping Bag, 32 tris, 0.75 x 0.187 x 1.9
+- lantern: Lantern, 174 tris, 0.2 x 0.423 x 0.2
+- sign_trail: Sign, Trail, 32 tris, 0.9 x 1.7 x 0.11
+- sign_camp: Sign, Camp, 32 tris, 0.9 x 1.7 x 0.11
+- sign_keep_out: Sign, Keep Out, 32 tris, 0.9 x 1.7 x 0.11
+- effigy: Stick Effigy, 248 tris, 1.676 x 2.929 x 0.151
+- bones: Bones, 132 tris, 0.759 x 0.352 x 0.51
+- ranger_station: Ranger Station, 1460 tris, 6.8 x 4.38 x 7.115
+- door_station: Station Door, 148 tris, 1 x 2.05 x 0.16, open; a machine, switch
+- key_station: Station Key, 124 tris, 0.169 x 0.012 x 0.053; a machine, item
+- key_boathouse: Boathouse Key, 124 tris, 0.169 x 0.012 x 0.053; a machine, item
+- fuel_can: Fuel Can, 84 tris, 0.322 x 0.41 x 0.16; a machine, item
+- generator_camp: Camp Generator, 360 tris, 1.062 x 0.57 x 0.48, start, run; a machine, switch
+- radio_ranger: Ranger's Radio, 88 tris, 0.54 x 0.755 x 0.3, turn; a machine, switch
+- floodlight: Floodlight, 100 tris, 0.84 x 4.2 x 0.343; a machine, powered
+- lookout_tower: Lookout Tower, 1036 tris, 3.7 x 11.71 x 4.48
+- flagpole: Flagpole, 72 tris, 1.79 x 6.58 x 0.5, wave
+- trail_map: Trail Map, 60 tris, 1.7 x 2.39 x 0.659
+- sign_fire_danger: Sign, Fire Danger, 60 tris, 1.7 x 2.24 x 0.659
+- notice_board: Notice Board, 120 tris, 1.9 x 2.39 x 0.659
+- sign_ranger: Sign, Ranger Station, 84 tris, 2.4 x 2.1 x 0.16
+- sign_lake: Sign, Lake, 32 tris, 0.9 x 1.7 x 0.11
+- sign_ranger_arrow: Sign, Ranger, 32 tris, 0.9 x 1.7 x 0.11
+- bear_box: Bear Box, 36 tris, 1.24 x 0.75 x 0.67, open
+- picnic_table: Picnic Table, 196 tris, 1.8 x 0.792 x 1.68
+- water_pump: Water Pump, 132 tris, 0.5 x 1.369 x 1.055, pump
+- wood_stove: Wood Stove, 100 tris, 0.6 x 2.45 x 0.52
+- barrier_road: Road Barrier, 60 tris, 4.9 x 1.06 x 0.3, open
+- bunk_bed_pine: Bunk Bed, Pine, 440 tris, 1.07 x 1.75 x 2.166
+- chest_trunk: Steamer Trunk, 132 tris, 0.92 x 0.482 x 0.485, open
+- blankets_folded: Folded Blankets, 60 tris, 0.447 x 0.21 x 0.342
+- rocking_chair_pine: Rocking Chair, Pine, 352 tris, 0.53 x 1.078 x 1.013, rock
+- rug_braided: Rug, Braided, 60 tris, 1.6 x 0.012 x 1.1
+- table_pine: Kitchen Table, Pine, 68 tris, 1.2 x 0.75 x 0.8
+- chair_ladder_pine: Chair, Ladder Back, 156 tris, 0.44 x 0.965 x 0.42
+- chair_folding_wood: Folding Chair, Wood, 72 tris, 0.44 x 0.848 x 0.482
+- box_stack: Box Stack, 36 tris, 0.7 x 1.15 x 0.55
+- crate: Wooden Crate, 252 tris, 0.6 x 0.45 x 0.45
+- wall_shelf: Wall Shelf, 52 tris, 0.8 x 0.157 x 0.201
+- filing_cabinet_green: Filing Cabinet, Green, 240 tris, 0.46 x 1.36 x 0.64, open
+- kettle_stove: Stovetop Kettle, 164 tris, 0.31 x 0.267 x 0.228, open
+- pot_enamel: Casserole Pot, 156 tris, 0.313 x 0.185 x 0.25, open
+- mug_green: Mug, Green, 64 tris, 0.112 x 0.095 x 0.076
+- can_soup: Can of Soup, 72 tris, 0.07 x 0.116 x 0.074
+- can_beans: Can of Beans, 72 tris, 0.07 x 0.116 x 0.074
+- book_atlas: Book, Atlas, 12 tris, 0.26 x 0.025 x 0.34
+- papers: Papers, Scattered, 72 tris, 0.643 x 0.007 x 0.531
+- calendar: Calendar, 14 tris, 0.3 x 0.45 x 0.004
+- wall_clock_old: Wall Clock, Old, 212 tris, 0.384 x 0.384 x 0.047, tick, hours
+- bucket: Bucket, 56 tris, 0.308 x 0.364 x 0.285
+- broom: Broom, 40 tris, 0.33 x 1.367 x 0.375
+- toolbox_green: Toolbox, Green, 82 tris, 0.46 x 0.28 x 0.225, open
+- step_ladder_wood: Step Ladder, Wood, 108 tris, 0.436 x 1.219 x 0.632
+- boots: Boots, 72 tris, 0.25 x 0.24 x 0.303
+- coat_rack_coats: Coat Rack, Coats, 352 tris, 0.566 x 1.85 x 0.566
+- padlock: Padlock, 132 tris, 0.056 x 0.082 x 0.02, open
+- flashlight: Flashlight, 110 tris, 0.19 x 0.054 x 0.051
+- battery: Battery, 56 tris, 0.034 x 0.061 x 0.032
+- note: Handwritten Note, 8 tris, 0.147 x 0.008 x 0.21
+- photo: Instant Photo, 12 tris, 0.108 x 0.001 x 0.123
+- crowbar: Crowbar, 80 tris, 0.605 x 0.092 x 0.234
+- first_aid_kit: First Aid Cabinet, 164 tris, 0.3 x 0.2 x 0.132, open
+- walkie_talkie: Walkie-Talkie, 60 tris, 0.075 x 0.34 x 0.04
+- map_folded: Folded Map, 12 tris, 0.1 x 0.002 x 0.21, unfold; a pickup, item (1 x map)
+- flare_pack: Flare Cartridges, 56 tris, 0.1 x 0.046 x 0.075, open; a pickup, item (3 x flare_cartridge)
+- cage_lamp: Cage Lamp, 578 tris, 0.16 x 0.16 x 0.194; a machine, powered
+- sign_generator: Generator Sign, 12 tris, 0.6 x 0.15 x 0.01
+- door_boathouse: Boathouse Door, 148 tris, 1 x 2.05 x 0.12, open; a machine, switch
+- dock: Dock, 260 tris, 2 x 1 x 4
+- dock_end: Dock End, 260 tris, 2 x 1.1 x 2.045
+- boathouse: Boathouse, 1062 tris, 4.626 x 4.671 x 6.8
+- rowboat: Rowboat, 265 tris, 1.35 x 0.63 x 3.6, rock
+- canoe: Canoe, 204 tris, 0.85 x 0.51 x 4.8
+- canoe_green: Canoe, Green, 204 tris, 0.85 x 0.51 x 4.8
+- canoe_rack: Canoe Rack, 504 tris, 1.6 x 1.93 x 4.8
+- paddle: Paddle, 40 tris, 0.16 x 0.032 x 1.6
+- life_ring_post: Life Ring Post, 144 tris, 0.67 x 1.5 x 0.222
+- lifeguard_chair: Lifeguard Chair, 160 tris, 1.199 x 2.556 x 1.199
+- lily_pads: Lily Pads, 230 tris, 1.982 x 0.038 x 1.875
+- fishing_rod: Fishing Rod, 44 tris, 0.052 x 0.077 x 2
+- tackle_box: Tackle Box, 24 tris, 0.4 x 0.22 x 0.22
+- footbridge: Footbridge, 440 tris, 1.2 x 1.321 x 4.8
+- deer_stand: Deer Stand, 308 tris, 1.6 x 4.777 x 2.428
+- bear_trap: Bear Trap, 580 tris, 0.842 x 0.198 x 0.352, snap
+- trail_marker: Trail Marker, 60 tris, 0.2 x 1.4 x 0.135
+- lean_to: Lean-To, 268 tris, 3.2 x 1.986 x 2.039
+- stick_figure: Stick Figure, 260 tris, 0.291 x 0.648 x 0.05, turn
+- sign_turn_back: Turn Back Sign, 48 tris, 0.714 x 1.4 x 0.079
+- sign_trespassers: Trespassers Sign, 48 tris, 0.959 x 1.3 x 0.088
+- crow: Crow, 154 tris, 0.102 x 0.205 x 0.385, look
+- wagon_rusted: Station Wagon, Rusted, 1656 tris, 2 x 1.356 x 4.93, open_hood, open_tailgate, open_front_left, open_front_right, open_rear_left, open_rear_right, open_all
+- pickup_rusted: Pickup, Rusted, 1344 tris, 2.1 x 1.605 x 5.2, open_hood, open_tailgate, open_left, open_right, open_all
+- road: Road, 56 tris, 6 x 0.003 x 4
+- road_cracked: Road, Cracked, 58 tris, 6 x 0.003 x 4
+- gravel: Gravel, 8 tris, 2 x 0 x 2
+- jerry_can: Jerry Can, 44 tris, 0.16 x 0.495 x 0.34
+- tire: Tire, 140 tris, 0.64 x 0.2 x 0.64
+- ground_grass: Ground, Grass, 24 tris, 4 x 0.11 x 4
+- ground_grass_dry: Ground, Dry Grass, 24 tris, 4 x 0.11 x 4
+- ground_forest_floor: Ground, Forest Floor, 24 tris, 4 x 0.11 x 4
+- ground_dirt: Ground, Dirt, 24 tris, 4 x 0.11 x 4
+- ground_mud: Ground, Mud, 24 tris, 4 x 0.11 x 4
+- ground_moss: Ground, Moss, 24 tris, 4 x 0.11 x 4
+- path_straight: Path, Straight, 24 tris, 4 x 0.11 x 4
+- path_corner: Path, Corner, 24 tris, 4 x 0.11 x 4
+- path_end: Path, End, 24 tris, 4 x 0.11 x 4
+- path_tee: Path, T, 24 tris, 4 x 0.11 x 4
+- path_cross: Path, Crossing, 24 tris, 4 x 0.11 x 4
+- edge_straight: Forest Edge, Straight, 24 tris, 4 x 0.11 x 4
+- edge_corner_out: Forest Edge, Outer Corner, 24 tris, 4 x 0.11 x 4
+- edge_corner_in: Forest Edge, Inner Corner, 24 tris, 4 x 0.11 x 4
+- water: Water, 72 tris, 4 x 0.44 x 4
+- shore_straight: Shore, Straight, 200 tris, 4 x 0.56 x 4
+- shore_corner_out: Shore, Outer Corner, 200 tris, 4 x 0.56 x 4
+- shore_corner_in: Shore, Inner Corner, 200 tris, 4 x 0.56 x 4
+- creek_straight: Creek, Straight, 200 tris, 4 x 0.56 x 4
+- creek_bend: Creek, Bend, 200 tris, 4 x 0.56 x 4
