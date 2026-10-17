@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5716681864270162303, guid: 5eae8872bea445874b520bd3f4f3c653, type: 3}
       propertyPath: m_PlayAutomatically
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5eae8872bea445874b520bd3f4f3c653, type: 3}
       propertyPath: m_LocalPosition.x
